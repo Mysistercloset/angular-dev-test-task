@@ -1,0 +1,9 @@
+<nz-select
+  nzShowSearch
+  nzAllowClear
+  nzPlaceHolder="Select city"
+  [nzOptions]="options"
+  (ngModelChange)="onSelect($event)"
+  [ngModel]="selectedCity"
+  (nzOnSearch)="onSearch($event)"
+></nz-select>

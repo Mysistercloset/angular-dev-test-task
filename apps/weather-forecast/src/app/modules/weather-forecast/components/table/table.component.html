@@ -1,0 +1,12 @@
+<nz-table #table [nzData]="data" [nzFrontPagination]="false" *ngIf="data.length">
+  <thead>
+    <tr>
+      <th *ngFor="let header of headers">{{ header }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of table.data">
+      <td *ngFor="let cell of row">{{ cell }}</td>
+    </tr>
+  </tbody>
+</nz-table>
