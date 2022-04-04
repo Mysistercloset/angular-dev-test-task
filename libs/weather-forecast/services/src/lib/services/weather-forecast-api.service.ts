@@ -5,8 +5,8 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class WeatherForecastApiService {
-	// private _apiKey = '010721642521f31b0fbc8c3831d45951';
-	private _apiKey = '2fc989c856ca6c9b79d43973840fa44c';
+	private _apiKey = '010721642521f31b0fbc8c3831d45951';
+	// private _apiKey = '2fc989c856ca6c9b79d43973840fa44c';
 	private _baseUrl = 'https://api.openweathermap.org';
 
 	constructor(private http: HttpClient) {}
