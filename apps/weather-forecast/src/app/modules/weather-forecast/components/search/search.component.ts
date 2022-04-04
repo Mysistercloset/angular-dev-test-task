@@ -5,6 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { getSearchedCitiesSelector } from 'apps/weather-forecast/src/app/state/weather-forecast/weather-forecast.selectors';
 import { NzSelectOptionInterface } from 'ng-zorro-antd/select';
 import { Subject, takeUntil } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
 	selector: 'bp-search',
@@ -16,9 +17,22 @@ export class SearchComponent implements OnInit, OnDestroy {
 	options: NzSelectOptionInterface[] = [];
 	ngUnsubscribe$ = new Subject<unknown>();
 
-	constructor(private store: Store, private cdr: ChangeDetectorRef) {}
+	constructor(
+		private store: Store,
+		private cdr: ChangeDetectorRef,
+		private router: Router,
+		private route: ActivatedRoute
+	) {}
 
 	ngOnInit(): void {
+		this.route.queryParams.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(res => {
+			const city = res.city;
+
+			if (!city) return;
+
+			this.store.dispatch(searchCities({ input: city }));
+		});
+
 		this.store.pipe(takeUntil(this.ngUnsubscribe$), select(getSearchedCitiesSelector)).subscribe((cities: City[]) => {
 			this.options = cities.map(city => ({
 				value: city,
@@ -31,7 +45,11 @@ export class SearchComponent implements OnInit, OnDestroy {
 	onSearch(city: string): void {
 		if (!city.length) return;
 
-		this.store.dispatch(searchCities({ input: city }));
+		this.router.navigate([], {
+			relativeTo: this.route,
+			queryParams: { city },
+			queryParamsHandling: 'merge',
+		});
 	}
 
 	onSelect(city: City | null): void {

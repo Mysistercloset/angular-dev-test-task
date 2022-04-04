@@ -7,10 +7,8 @@ export const WEATHER_FORECAST_FEATURE_KEY = 'weatherForecast';
 
 export interface State {
 	searchedCities: City[];
-	selectedCities: City[];
 	mode: ForecastMode;
 	forecasts: Forecast[];
-	loaded: boolean; 
 	error: string | null;
 }
 
@@ -22,15 +20,14 @@ export const initialState: State = {
 	mode: ForecastMode.Daily,
 	forecasts: [],
 	searchedCities: [],
-	selectedCities: [],
 	error: null,
-	loaded: false,
 };
 
 const weatherForecastReducer = createReducer(
 	initialState,
 	on(WeatherForecastActions.searchCitiesSuccess, (state, { cities }) => ({ ...state, searchedCities: cities })),
 	on(WeatherForecastActions.searchCitiesFailure, (state, { error }) => ({ ...state, error })),
+	on(WeatherForecastActions.setMode, (state, { mode }) => ({ ...state, mode })),
 	on(WeatherForecastActions.getForecastSuccess, (state, { forecast }) => ({ ...state, forecasts: [...state.forecasts, forecast] })),
 	on(WeatherForecastActions.getForecastFailure, (state, { error }) => ({ ...state, error })),
 );

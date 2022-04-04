@@ -6,7 +6,7 @@
 	</thead>
 	<tbody>
 		<tr *ngFor="let row of table.data">
-			<td *ngFor="let cell of row">{{ cell }}</td>
+			<td *ngFor="let cell of row" [innerHTML]="cell"></td>
 		</tr>
 	</tbody>
 </nz-table>

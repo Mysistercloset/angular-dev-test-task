@@ -4,6 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { filter, Subject, takeUntil } from 'rxjs';
 import { getErrorSelector } from '../../../state/weather-forecast/weather-forecast.selectors';
+import { Title } from '@angular/platform-browser';
 
 @Component({
 	selector: 'bp-index',
@@ -13,9 +14,10 @@ import { getErrorSelector } from '../../../state/weather-forecast/weather-foreca
 export class IndexComponent implements OnInit, OnDestroy {
 	ngUnsubscribe$ = new Subject<unknown>();
 
-	constructor(private store: Store, private message: NzMessageService) {}
+	constructor(private store: Store, private title: Title, private message: NzMessageService) {}
 
 	ngOnInit(): void {
+		this.title.setTitle('Weather forecast');
 		this.store
 			.pipe(
 				takeUntil(this.ngUnsubscribe$),

@@ -30,6 +30,6 @@ export interface HourlyForecast {
 }
 
 export enum ForecastMode {
-	Daily,
-	Hourly,
+	Daily = 'Daily',
+	Hourly = 'Hourly',
 }

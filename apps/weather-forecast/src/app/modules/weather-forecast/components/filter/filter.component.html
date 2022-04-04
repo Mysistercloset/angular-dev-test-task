@@ -1,3 +1,8 @@
-<nz-switch [ngModel]="true" [nzCheckedChildren]="checkedTemplate" [nzUnCheckedChildren]="unCheckedTemplate"></nz-switch>
-<ng-template #checkedTemplate><span>Day</span></ng-template>
-<ng-template #unCheckedTemplate><span>Week</span></ng-template>
+<nz-switch
+	[ngModel]="dailyMode"
+	(ngModelChange)="onChange($event)"
+	[nzCheckedChildren]="checkedTemplate"
+	[nzUnCheckedChildren]="unCheckedTemplate"
+></nz-switch>
+<ng-template #checkedTemplate><span>D</span></ng-template>
+<ng-template #unCheckedTemplate><span>H</span></ng-template>
